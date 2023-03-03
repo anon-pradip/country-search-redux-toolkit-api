@@ -20,12 +20,19 @@ const CountryDetail = () => {
   }
 
   return (
-    <div>
+    <div className=' grid place-items-center gap-y-4 py-3 grid-cols-1 md:grid-cols-3 lg:grid-cols-4 bg-slate-100'>
       {countries.map((country) => {
         return (
-          <>
-            <img src={country.flags.png} alt={country.flags.alt} className='h-40 w-40' />
-          </>
+          <div className=' flex flex-col rounded shadow-xl p-2 w-48 h-48 object-contain bg-white hover:translate-x-1 transform transition duration-300 hover:scale-105'>
+            <div>
+              <img src={country.flags.png} alt={country.flags.alt} className=' object-contain h-28 w-full' />
+            </div>
+            <div>
+              <p>hello</p>
+              <p>hello</p>
+              <p>hello</p>
+            </div>
+          </div>
         )
       })}
     </div>
