@@ -1,7 +1,7 @@
 import Navabar from "./components/Navabar";
 import { Routes, Route } from "react-router-dom"
 import Home from "./pages/Home"
-import SIngleCountry from "./pages/SIngleCountry";
+import SingleCountry from "./pages/SIngleCountry";
 
 function App() {
   return (
@@ -9,7 +9,7 @@ function App() {
       <Routes>
         <Route exact path="/" element={<Navabar />}>
           <Route index element={<Home />}></Route>
-          <Route path="/:code" element={<SIngleCountry />}></Route>
+          <Route path="/:code" element={<SingleCountry />}></Route>
         </Route>
       </Routes>
     </>
