@@ -6,12 +6,15 @@ import { Link } from 'react-router-dom';
 const CountryDetail = () => {
   const dispatch = useDispatch();
   const [countries, setCountries] = useState([])
-  const { countriesData, error, region } = useSelector((state) => state.countries)
+  const { countriesData, error, region, searchTerm } = useSelector((state) => state.countries)
 
   useEffect(() => {
     dispatch(showAllCountries())
     if (region) {
       dispatch(searchByRegion(region))
+    }
+    if (error) {
+      console.log(error)
     }
   }, [dispatch, region, error])
 
@@ -19,13 +22,14 @@ const CountryDetail = () => {
     setCountries(countriesData)
   }, [countriesData])
 
-  if (error) {
-    console.log(error)
-  }
+  const data = countriesData.filter((item) => {
+    return item.name.common.toLowerCase().includes(searchTerm)
+  })
+
 
   return (
     <div className=' grid place-items-center gap-y-4 py-3 grid-cols-1 md:grid-cols-3 lg:grid-cols-4 bg-slate-100'>
-      {countries.map((country, index) => {
+      {data.map((country, index) => {
         return (
           <Link to={`/${country.cioc}`} className=' flex flex-col rounded shadow-xl p-2 w-48 object-contain bg-white hover:translate-x-1 transform transition duration-300 hover:scale-105' key={index}>
             <div>

@@ -1,11 +1,16 @@
 import React, { useEffect, useState } from 'react'
-import { useDispatch } from 'react-redux'
-import { reset, setRegion } from '../features/countries/countriesSlice'
+import { useDispatch, useSelector } from 'react-redux'
+import { reset, setRegion, setSearhTerm } from '../features/countries/countriesSlice'
 
 const SearchFilter = () => {
   const regions = ["Africa", "Americas", "Asia", "Europe", "Oceania"]
   const [filter, setFilter] = useState("")
   const dispatch = useDispatch();
+
+  const { searchTerm } = useSelector((state) => state.countries)
+  const handleChangeInput = (e) => {
+    dispatch(setSearhTerm(e.target.value.toLowerCase()))
+  }
 
   useEffect(() => {
     if (filter !== "") {
@@ -31,6 +36,8 @@ const SearchFilter = () => {
           id="name"
           className="block w-full border-0 p-0 text-gray-900 placeholder-gray-500 focus:ring-0 sm:text-sm"
           placeholder="Search..."
+          value={searchTerm}
+          onChange={handleChangeInput}
         />
       </div>
 

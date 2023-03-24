@@ -8,7 +8,8 @@ const initialState = {
   error: false,
   success: false,
   message: "",
-  region: ""
+  region: "",
+  searchTerm: ""
 }
 
 export const countriesSlice = createSlice({
@@ -25,6 +26,9 @@ export const countriesSlice = createSlice({
     },
     setRegion: (state, action) => {
       state.region = action.payload
+    },
+    setSearhTerm: (state, action) => {
+      state.searchTerm = action.payload
     }
   },
   extraReducers: (builder) => {
@@ -74,6 +78,6 @@ export const countriesSlice = createSlice({
 
 })
 
-export const { reset, setRegion } = countriesSlice.actions
+export const { reset, setRegion, setSearhTerm } = countriesSlice.actions
 
 export default countriesSlice.reducer
