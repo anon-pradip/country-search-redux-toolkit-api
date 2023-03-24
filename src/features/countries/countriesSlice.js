@@ -19,6 +19,7 @@ export const countriesSlice = createSlice({
       state.success = false
       state.error = false
       state.message = ""
+      state.countrySearched = []
     }
   },
   extraReducers: (builder) => {
@@ -53,5 +54,7 @@ export const countriesSlice = createSlice({
   }
 
 })
+
+export const { reset } = countriesSlice.actions
 
 export default countriesSlice.reducer

@@ -4,6 +4,7 @@ import { Link, useParams } from 'react-router-dom'
 
 import { useSelector, useDispatch } from 'react-redux'
 import { searchByCode } from '../features/countries/countryActions'
+import { reset } from '../features/countries/countriesSlice'
 
 const SingleCountry = () => {
   const { loading, error, countrySearched } = useSelector(state => state.countries)
@@ -15,6 +16,12 @@ const SingleCountry = () => {
       dispatch(searchByCode(code.toLowerCase()))
     }
     if (error) { console.log(error) }
+    if (error != null) { // add a null check
+      console.log(error)
+    }
+    return () => {
+      dispatch(reset())
+    }
   }, [dispatch, code, error])
 
   return (
