@@ -39,7 +39,7 @@ const SingleCountry = () => {
               </div>
 
               {/* CONTENT */}
-              <div className=' flex flex-col bg-red-500'>
+              <div className=' flex flex-col'>
                 <h1 className='underline underline-offset-2 text-center font-bold font-mono text-2xl'>{countrySearched[0].name.common}</h1>
 
                 <div className='flex flex-col space-y-2 space-x-0 md:flex-row md:justify-between md:items-center'>
@@ -71,10 +71,8 @@ const SingleCountry = () => {
                       </ul>
                     </div>
                     <p className=' flex flex-row'> <span className='font-semibold font-serif pr-1'>Languages: </span>
-                      {Object.values(countrySearched[0].languages).map((item) => item).join(",")}
+                      {Object.values(countrySearched[0].languages).map((item, index) => item).join(",")}
                     </p>
-
-
                   </div>
                 </div>
               </div>
@@ -86,16 +84,21 @@ const SingleCountry = () => {
       </div>
 
       {/* BORDERS */}
-      <div>
+      <div className=' flex justify-start items-center'>
         <h1 className=' text-2xl font-bold font-mono'>Borders:</h1>
-        <ul>
-          {countrySearched[0].borders?.map((border) => (
-            <li key={border}>{border}</li>
-          ))}
-        </ul>
+        <div className='flex flex-wrap space-x-3'>
+          {countrySearched.length > 0 && countrySearched[0].borders ? (
+            countrySearched[0].borders.map((border, index) => (
+              <Link to={`/${border}`} key={index} className='px-5 py-2.5 font-medium bg-blue-50 hover:bg-blue-100 hover:text-blue-600 text-blue-500 rounded-lg text-sm'>{border}</Link>
+            ))
+          ) : (
+            <p>No border countries found</p>
+          )}
+        </div>
       </div>
     </div >
   )
 }
 
 export default SingleCountry
+
