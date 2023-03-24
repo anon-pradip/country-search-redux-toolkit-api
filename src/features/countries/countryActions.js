@@ -23,3 +23,15 @@ export const searchByCode = createAsyncThunk("countries/searchByCode", async (co
     return thunkAPI.rejectWithValue(message)
   }
 })
+
+// SEARCH BY REGION
+export const searchByRegion = createAsyncThunk("countries/searchByRegion", async (region, thunkAPI) => {
+  try {
+    const response = await axios.get(`https://restcountries.com/v3.1/region/${region}
+    `)
+    return response.data
+  } catch (error) {
+    const message = (error.response && error.response.data) || error.message
+    return thunkAPI.rejectWithValue(message)
+  }
+})

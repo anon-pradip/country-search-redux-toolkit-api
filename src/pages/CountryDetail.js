@@ -1,16 +1,19 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { showAllCountries } from '../features/countries/countryActions';
+import { searchByRegion, showAllCountries } from '../features/countries/countryActions';
 import { Link } from 'react-router-dom';
 
 const CountryDetail = () => {
   const dispatch = useDispatch();
   const [countries, setCountries] = useState([])
-  const { countriesData, error } = useSelector((state) => state.countries)
+  const { countriesData, error, region } = useSelector((state) => state.countries)
 
   useEffect(() => {
     dispatch(showAllCountries())
-  }, [dispatch])
+    if (region) {
+      dispatch(searchByRegion(region))
+    }
+  }, [dispatch, region, error])
 
   useEffect(() => {
     setCountries(countriesData)

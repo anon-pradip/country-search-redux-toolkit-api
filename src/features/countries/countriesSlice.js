@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { showAllCountries, searchByCode } from "./countryActions";
+import { showAllCountries, searchByCode, searchByRegion } from "./countryActions";
 
 const initialState = {
   loading: true,
@@ -7,7 +7,8 @@ const initialState = {
   countrySearched: [],
   error: false,
   success: false,
-  message: ""
+  message: "",
+  region: ""
 }
 
 export const countriesSlice = createSlice({
@@ -20,6 +21,10 @@ export const countriesSlice = createSlice({
       state.error = false
       state.message = ""
       state.countrySearched = []
+      state.region = ""
+    },
+    setRegion: (state, action) => {
+      state.region = action.payload
     }
   },
   extraReducers: (builder) => {
@@ -51,10 +56,24 @@ export const countriesSlice = createSlice({
         state.message = action.payload
         state.countrySearched = []
       })
+      .addCase(searchByRegion.pending, (state) => {
+        state.loading = true
+      })
+      .addCase(searchByRegion.fulfilled, (state, action) => {
+        state.loading = false
+        state.countriesData = action.payload
+        state.success = true
+      })
+      .addCase(searchByRegion.rejected, (state, action) => {
+        state.loading = false
+        state.error = true
+        state.message = action.payload
+        state.countriesData = []
+      })
   }
 
 })
 
-export const { reset } = countriesSlice.actions
+export const { reset, setRegion } = countriesSlice.actions
 
 export default countriesSlice.reducer
